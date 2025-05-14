@@ -1,4 +1,4 @@
-cmake -S . -G "Unix Makefiles" -B build
+cmake -S . -G "Ninja" -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 
 root_dir="$(pwd)"

@@ -34,8 +34,10 @@ class Character
 	Attributes attributes;
 	Stats      stats, bonus;
 
-	std::unique_ptr<map<Element, float>> resistances = std::make_unique<map<Element, float>>(); ///< Value is resistance coefficient between 0.0-1.0
-	std::unique_ptr<map<Element, float>> weaknesses = std::make_unique<map<Element, float>>(); ///< Value is weakness coefficient between 0.0-1.0
+	std::unique_ptr<map<Element, float>> resistances_ptr = std::make_unique<map<Element, float>>(); ///< Value is resistance coefficient between 0.0-1.0
+	std::unique_ptr<map<Element, float>> weaknesses_ptr = std::make_unique<map<Element, float>>(); ///< Value is weakness coefficient between 0.0-1.0
+	map<Element, float>& resistances = *resistances_ptr;
+	map<Element, float>& weaknesses  = *weaknesses_ptr;
 
   public:
 	Character(Attributes attributes, map<Element, float> resistances, map<Element, float> weaknesses);
@@ -46,7 +48,7 @@ class Character
 	/// Initialize stats for character
 	virtual void updateStats();
 
-	const map<Element, float>& getResitances() const { return *this->resistances; }
+	const map<Element, float>& getResitances() const { return resistances; }
 
-	const map<Element, float>& getWeaknesses() const { return *this->weaknesses; }
+	const map<Element, float>& getWeaknesses() const { return weaknesses; }
 };

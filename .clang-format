@@ -2,7 +2,7 @@ AllowShortBlocksOnASingleLine: Always
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortEnumsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: All
-AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortIfStatementsOnASingleLine: WithoutElse
 AllowShortLambdasOnASingleLine: All
 AllowShortLoopsOnASingleLine: true
 AllowAllParametersOfDeclarationOnNextLine: false
@@ -18,8 +18,8 @@ UseCRLF: false
 LineEnding: LF
 UseTab: AlignWithSpaces
 ColumnLimit: 100
-IndentWidth: 4
-TabWidth: 4
+IndentWidth: 3
+TabWidth: 3
 
 SpacesInSquareBrackets: false
 SpacesInParentheses: false
@@ -79,6 +79,7 @@ PointerAlignment: Left
 ReferenceAlignment: Left
 AlignArrayOfStructures: Left
 AlignAfterOpenBracket: Align
+BracedInitializerIndentWidth: 0
 AlignOperands: AlignAfterOperator
 AlignConsecutiveAssignments: Consecutive
 AlignConsecutiveDeclarations: Consecutive

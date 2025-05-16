@@ -1,4 +1,5 @@
-cmake -S . -G "Ninja" -B build -DCMAKE_BUILD_TYPE=Release
+#!/usr/bin/env bash
+cmake -S . -G "${GENERATOR:-${1:-Unix Makefiles}}" -B build $BUILD_ARGS
 cmake --build build
 
 root_dir="$(pwd)"

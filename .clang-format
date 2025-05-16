@@ -11,7 +11,7 @@ AllowAllArgumentsOnNextLine: false
 BinPackArguments: true
 BinPackParameters: true
 PackConstructorInitializers: BinPack
-Cpp11BracedListStyle: true
+Cpp11BracedListStyle: false
 LambdaBodyIndentation: Signature
 
 UseCRLF: false
@@ -33,7 +33,7 @@ SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: false
 SpaceBeforeCaseColon: false
-SpaceBeforeCpp11BracedList: true
+SpaceBeforeCpp11BracedList: false
 SpaceBeforeCtorInitializerColon: true
 SpaceBeforeInheritanceColon: true
 SpacesInLineCommentPrefix:

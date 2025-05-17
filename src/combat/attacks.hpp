@@ -1,20 +1,14 @@
 #pragma once
 
 #include "combat/elements.hpp"
-
-enum class AttackType { MELEE, RANGED, MAGIC };
+#include "core/character_base.hpp"
 
 struct Attack
 {
-	float damage_coefficient, range_coefficient, speed_coefficient;
-	AttackType attack_type;
-	Element damage_type;
-
-	Attack(
-		float damage_coefficient = 1.0f,
-		float range_coefficient = 1.0f,
-		float speed_coefficient = 1.0f,
-		AttackType attack_type = AttackType::MELEE,
-		Element damage_type = Element::NONE
-	);
+	enum class Kind : char { MELEE, RANGED, MAGIC };
+	double  damage_coeff = 1.0, range_coeff = 1.0, speed_coeff = 1.0;
+	Kind    attack_type = Kind::MELEE;
+	Element damage_type = Element::NONE;
+	Character* attacker = nullptr;
+	// [[nodiscard]] int calculateDamage() const;
 };

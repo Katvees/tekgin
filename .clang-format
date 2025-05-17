@@ -8,16 +8,16 @@ AllowShortLoopsOnASingleLine: true
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowAllArgumentsOnNextLine: false
 
-BinPackArguments: true
-BinPackParameters: true
-PackConstructorInitializers: BinPack
+BinPackArguments: false
+BinPackParameters: false
+PackConstructorInitializers: CurrentLine
 Cpp11BracedListStyle: false
 LambdaBodyIndentation: Signature
 
 UseCRLF: false
 LineEnding: LF
 UseTab: AlignWithSpaces
-ColumnLimit: 100
+ColumnLimit: 120
 IndentWidth: 3
 TabWidth: 3
 
@@ -42,9 +42,8 @@ SpacesInLineCommentPrefix:
 SpaceBeforeParens: ControlStatementsExceptControlMacros
 
 SortIncludes: CaseSensitive
-SeparateDefinitionBlocks: Always
-AlwaysBreakTemplateDeclarations: Yes
 AlwaysBreakBeforeMultilineStrings: false
+BreakTemplateDeclarations: MultiLine
 BreakConstructorInitializers:  BeforeColon
 BreakInheritanceList: AfterColon
 BreakBeforeConceptDeclarations: Always
@@ -94,7 +93,7 @@ AllowAllConstructorInitializersOnNextLine: true
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
 
 
-PenaltyExcessCharacter: 1
+PenaltyExcessCharacter: 3
 PenaltyReturnTypeOnItsOwnLine: 20
 PenaltyBreakComment: 50
 PenaltyBreakAssignment: 50

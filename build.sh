@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
-cmake -S . -G "${GENERATOR:-${1:-Unix Makefiles}}" -B build $BUILD_ARGS
+
+# Parse input variables
+for arg in "$@"; do
+	eval "${arg%%=*}"=\'"${arg#*=}"\'
+done
+
+cmake -S . -G "$GENERATOR" -B build $BUILD_ARGS
 cmake --build build
 
 root_dir="$(pwd)"

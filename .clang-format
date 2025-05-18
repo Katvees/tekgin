@@ -42,6 +42,7 @@ SpacesInLineCommentPrefix:
 SpaceBeforeParens: ControlStatementsExceptControlMacros
 
 SortIncludes: CaseSensitive
+CompactNamespaces: true
 AlwaysBreakBeforeMultilineStrings: false
 BreakTemplateDeclarations: MultiLine
 BreakConstructorInitializers:  BeforeColon
@@ -71,7 +72,7 @@ BraceWrapping:
 
 ReflowComments: false
 CommentPragmas: '^[!*/]'
-NamespaceIndentation: Inner
+NamespaceIndentation: All
 QualifierAlignment: Leave
 DerivePointerAlignment: false
 PointerAlignment: Left

@@ -33,18 +33,6 @@ void Character::takeDamage(int damage, const Element& damage_type)
 	stats.health -= damage;
 }
 
-Character::Attributes::Attributes(int vi, int en, int st, int de, int ch, int in, int wi, int wp, Size si)
-	 : vitality(vi),
-		endurance(en),
-		strength(st),
-		dexterity(de),
-		charisma(ch),
-		intelligence(in),
-		wisdom(wi),
-		willpower(wp),
-		size(si)
-{}
-
 Character::Stats operator+(Character::Stats lhs, const Character::Stats& rhs)
 {
 	return lhs += rhs;

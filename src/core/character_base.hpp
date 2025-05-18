@@ -23,17 +23,6 @@ class Character
 		int  vitality, endurance, strength, dexterity;  // Physical
 		int  charisma, intelligence, wisdom, willpower; // Mental
 		Size size = Size::MEDIUM;
-
-	 public:
-		Attributes(int  vitality,
-		           int  endurance,
-		           int  strength,
-		           int  dexterity,
-		           int  charisma,
-		           int  intelligence,
-		           int  wisdom,
-		           int  willpower,
-		           Size size = Size::MEDIUM);
 	};
 
 	struct Stats

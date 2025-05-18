@@ -3,9 +3,12 @@
 
 using std::unordered_map;
 
-Character::Character(const Attributes& attrs, const unordered_map<Element, double>& res,
+Character::Character(const Attributes&                          attrs,
+                     const unordered_map<Element, double>&      res,
                      const std::unordered_map<Element, double>& weak)
-	 : attributes(attrs), stats(), bonus(),
+	 : attributes(attrs),
+		stats(),
+		bonus(),
 		resistances_ptr(std::make_unique<unordered_map<Element, double>>(res)),
 		weaknesses_ptr(std::make_unique<unordered_map<Element, double>>(weak))
 {
@@ -31,6 +34,18 @@ void Character::takeDamage(int damage, const Element& damage_type)
 }
 
 Character::Attributes::Attributes(int vi, int en, int st, int de, int ch, int in, int wi, int wp, Size si)
-	 : vitality(vi), endurance(en), strength(st), dexterity(de), charisma(ch), intelligence(in),
-		wisdom(wi), willpower(wp), size(si)
+	 : vitality(vi),
+		endurance(en),
+		strength(st),
+		dexterity(de),
+		charisma(ch),
+		intelligence(in),
+		wisdom(wi),
+		willpower(wp),
+		size(si)
 {}
+
+Character::Stats operator+(Character::Stats lhs, const Character::Stats& rhs)
+{
+	return lhs += rhs;
+}

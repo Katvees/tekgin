@@ -2,9 +2,9 @@
 
 #include "combat/elements.hpp"
 #include <cassert>
-#include <initializer_list>
 #include <memory>
 #include <optional>
+#include <pthread.h>
 #include <unordered_map>
 
 
@@ -25,15 +25,34 @@ class Character
 		Size size = Size::MEDIUM;
 
 	 public:
-		Attributes(int vitality, int endurance, int strength, int dexterity, int charisma,
-		           int intelligence, int wisdom, int willpower, Size size = Size::MEDIUM);
+		Attributes(int  vitality,
+		           int  endurance,
+		           int  strength,
+		           int  dexterity,
+		           int  charisma,
+		           int  intelligence,
+		           int  wisdom,
+		           int  willpower,
+		           Size size = Size::MEDIUM);
 	};
 
 	struct Stats
 	{
 		int health{}, stamina{}, mana{}, range{}, speed{}, defense{};
+
+		Stats operator+=(const Stats& rhs)
+		{
+			this->health += rhs.health;
+			this->stamina += rhs.stamina;
+			this->mana += rhs.mana;
+			this->range += rhs.range;
+			this->speed += rhs.speed;
+			this->defense += rhs.defense;
+			return *this;
+		}
 	};
 
+	friend Stats operator+(Stats lhs, const Stats& rhs);
 
  protected:
 	Attributes attributes;
@@ -56,17 +75,19 @@ class Character
 	/// Initialize stats for character
 	virtual void updateStats();
 
-	void setResitances(Element element, double value) { resistances_ptr->emplace(element, value); }
+	/// Get stats with or without bonuses applied
+	Stats getStats(bool with_bonuses) { return with_bonuses ? stats + bonus : stats; }
 
-	[[nodiscard]] ElementMap& getResistances() { return *resistances_ptr; }
-	[[nodiscard]] ElementMap& getWeaknesses() { return *weaknesses_ptr; }
-
+	void setResistance(Element element, double value) { resistances_ptr->insert_or_assign(element, value); }
+	[[nodiscard]] ElementMap&           getResistances() { return *resistances_ptr; }
 	[[nodiscard]] std::optional<double> getResistance(Element element) const
 	{
 		const auto& it = resistances_ptr->find(element);
 		return it != resistances_ptr->end() ? it->second : std::optional<double>{};
 	}
 
+	void setWeakness(Element element, double value) { weaknesses_ptr->insert_or_assign(element, value); }
+	[[nodiscard]] ElementMap&           getWeaknesses() { return *weaknesses_ptr; }
 	[[nodiscard]] std::optional<double> getWeakness(Element element) const
 	{
 		const auto& it = weaknesses_ptr->find(element);

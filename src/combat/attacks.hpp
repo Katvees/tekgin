@@ -10,5 +10,5 @@ struct Attack
 	Kind    attack_type = Kind::MELEE;
 	Element damage_type = Element::NONE;
 	Character* attacker = nullptr;
-	// [[nodiscard]] int calculateDamage() const;
+	[[nodiscard]] int calculateDamage() const;
 };

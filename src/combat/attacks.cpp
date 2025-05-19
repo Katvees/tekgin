@@ -1,6 +1,6 @@
 #include "combat/attacks.hpp"
 
-int Attack::calculateDamage() const
+int Tekgin::Attack::calculateDamage() const
 {
 	// Check for damage solver
 	if (damage_solver) {

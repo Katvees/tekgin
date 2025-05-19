@@ -17,6 +17,7 @@ class Character
 	using ElementMap = std::unordered_map<Element, double>;
 	using Element::ALL;
 
+ public:
 	/// Contains attributes of character
 	struct Attributes
 	{
@@ -64,8 +65,10 @@ class Character
 	/// Initialize stats for character
 	virtual void updateStats();
 
+	const Attributes& getAttributes() { return attributes; }
+
 	/// Get stats with or without bonuses applied
-	Stats getStats(bool with_bonuses) { return with_bonuses ? stats + bonus : stats; }
+	Stats getStats(bool with_bonuses = false) { return with_bonuses ? stats + bonus : stats; }
 
 	void setResistance(Element element, double value) { resistances_ptr->insert_or_assign(element, value); }
 	[[nodiscard]] ElementMap&           getResistances() { return *resistances_ptr; }

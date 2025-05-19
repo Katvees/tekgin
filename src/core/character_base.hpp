@@ -1,10 +1,8 @@
 #pragma once
 
 #include "combat/elements.hpp"
-#include <cassert>
 #include <memory>
 #include <optional>
-#include <pthread.h>
 #include <unordered_map>
 
 

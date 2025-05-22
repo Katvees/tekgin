@@ -9,7 +9,7 @@ The engine will be split into a runtime and a "pseudo-editor". The editor parses
 There will be a possibility to run the game in terminal or in a GUI with bundled fonts
 
 ## Structure
-Each character (player, NPC, enemies, etc.) is based on the same class (`Charcter`) and are convertible and share mostly the same structure.
+Each character (player, NPC, enemies, etc.) is based on the same class (`Character`) and are convertible and share mostly the same structure.
 All permanent (those that persist between scenes) characters have a unique ID that is defined by the order of definition. The properties that have changed are loaded from save files.
 Transient characters are destroyed after the player moves to another scene, unless they have a residence set in any scene.
 The residence of a character is where it exists in the world. All characters are self-aware of their residence and the specific location in the node.

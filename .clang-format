@@ -72,7 +72,7 @@ BraceWrapping:
 
 ReflowComments: false
 CommentPragmas: '^[!*/]'
-NamespaceIndentation: All
+NamespaceIndentation: Inner
 QualifierAlignment: Leave
 DerivePointerAlignment: false
 PointerAlignment: Left

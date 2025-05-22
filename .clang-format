@@ -44,7 +44,7 @@ SpaceBeforeParens: ControlStatementsExceptControlMacros
 SortIncludes: CaseSensitive
 CompactNamespaces: true
 AlwaysBreakBeforeMultilineStrings: false
-BreakTemplateDeclarations: MultiLine
+BreakTemplateDeclarations: true
 BreakConstructorInitializers:  BeforeColon
 BreakInheritanceList: AfterColon
 BreakBeforeConceptDeclarations: Always

@@ -36,6 +36,4 @@ namespace Tekgin
 		damage = damage < 0 ? 0 : damage;
 		stats.health -= damage;
 	}
-
-	Character::Stats operator+(Character::Stats lhs, const Character::Stats& rhs) { return lhs += rhs; }
 } // namespace Tekgin

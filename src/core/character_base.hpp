@@ -30,7 +30,7 @@ namespace Tekgin
 		{
 			int health{}, stamina{}, mana{}, range{}, speed{}, defense{};
 
-			Stats operator+=(const Stats& rhs)
+			Stats& operator+=(const Stats& rhs)
 			{
 				this->health += rhs.health;
 				this->stamina += rhs.stamina;
@@ -40,9 +40,21 @@ namespace Tekgin
 				this->defense += rhs.defense;
 				return *this;
 			}
+
+			Stats& operator-=(const Stats& rhs)
+			{
+				this->health -= rhs.health;
+				this->stamina -= rhs.stamina;
+				this->mana -= rhs.mana;
+				this->range -= rhs.range;
+				this->speed -= rhs.speed;
+				this->defense -= rhs.defense;
+				return *this;
+			}
 		};
 
-		friend Stats operator+(Stats lhs, const Stats& rhs);
+		friend Stats operator+(Stats lhs, const Stats& rhs) { return lhs += rhs; };
+		friend Stats operator-(Stats lhs, const Stats& rhs) { return lhs += rhs; };
 
 	 protected:
 		Attributes attributes;

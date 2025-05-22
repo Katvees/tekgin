@@ -1,4 +1,4 @@
-This repository uses [jj](https://github.com/jj-vcs/jj) for version control.
+This repository uses [jj](https://github.com/jj-vcs/jj) with a git backend for version control.
 
 ---
 
@@ -24,3 +24,8 @@ Some properties every scene and subscene has are: owner (faction or character), 
 
 ## Saving and loading the game
 The save is a hierarchy of files that can be queried using the file names, which correspond to the object's UUID, which are fetched on access if the object is not yet loaded. Objects that go out of scope may be unloaded depending on the object to save memory (having the whole world loaded into memory at all times isn't really optimal or needed). This also means the player can edit the save as they wish, but a checksum could be implemented to check if the save has been tampered with, though why should the player be limited like that in a single player game?
+
+
+
+## Development notes
+Likely leaving the development of the (de)serialization for when c++2c is released to use the reflection to make a generalized (de)serialization function that works on all classes, while allowing custom handling for specific fields or fully replacing the logicustom handling for specific fields or fully replacing the logic.

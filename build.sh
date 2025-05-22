@@ -5,6 +5,10 @@ for arg in "$@"; do
 	eval "${arg%%=*}"=\'"${arg#*=}"\'
 done
 
+if [[ ${CLEAN,,} == "true" ]]; then
+	echo "Cleaning build directory..."
+	rm -rf build/*
+fi
 cmake -S . -G "$GENERATOR" -B build $BUILD_ARGS
 cmake --build build
 
@@ -13,7 +17,7 @@ include_dir="$root_dir/build/tekgin/include"
 
 header_paths="$(find "$root_dir"/src -name "*.[h]pp" -type f)"
 
-trash "$include_dir" -r
+[[ ${CLEAN,,} != "true" ]] && trash "$include_dir" -r
 mkdir "$include_dir" -p
 ln -s . "$include_dir/tekgin"
 for header_path in $header_paths; do

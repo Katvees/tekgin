@@ -3,14 +3,14 @@ This repository uses [jj](https://github.com/jj-vcs/jj) for version control.
 ---
 
 # Tekgin
-A library for making text adventure games
+A text adventure game engine
 
 
 ## Scope
 ~~The engine will not have an editor, but is manually programmed using C++ with the libraries provided by the engine.~~
 The engine will be split into a runtime and a "pseudo-editor". The editor parses configuration files written for the game and compiles them into a database and executable for the game using the runtime code.
 
-There will be a possibility to run the game in terminal or in a GUI with bundled fonts.
+There will be a possibility to run the game in terminal. ~~or in a terminal GUI with bundled fonts.~~
 
 ## Structure
 Each character (player, NPC, enemies, etc.) is based on the same class (`Character`) and are convertible and share mostly the same structure.

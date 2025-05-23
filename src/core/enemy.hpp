@@ -1,4 +1,5 @@
 #pragma once
+
 #include "core/character_base.hpp"
 #include "core/interface/saveable.hpp"
 #include <functional>

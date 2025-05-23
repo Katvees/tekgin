@@ -4,5 +4,5 @@
 /// Elements for damage types etc.
 namespace Tekgin
 {
-	enum class Element : char { NONE, ALL, FIRE, COLD, LIGHTNING, POISON };
+enum class Element : char { NONE, ALL, FIRE, COLD, LIGHTNING, POISON };
 }

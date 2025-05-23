@@ -17,8 +17,8 @@ class Enemy : public Character, ISaveable
 	hash<ulong> id_hash;
 
  public:
-	void Save() override;
-	void Load() override;
+	void save() override;
+	void load() override;
 
 	ulong       getId() override { return id; };
 	hash<ulong> getIdHash() override { return id_hash; };

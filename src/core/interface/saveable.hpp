@@ -15,8 +15,8 @@ struct ISaveable
 	ISaveable& operator=(ISaveable&&)      = delete;
 	virtual ~ISaveable()                   = 0;
 
-	virtual void Save() = 0;
-	virtual void Load() = 0;
+	virtual void save() = 0;
+	virtual void load() = 0;
 
 	virtual ulong            getId()     = 0;
 	virtual std::hash<ulong> getIdHash() = 0;

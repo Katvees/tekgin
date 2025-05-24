@@ -25,7 +25,7 @@ void Character::updateStats()
 	stats.stamina = static_cast<int>((attributes.vitality * 0.4 + attributes.endurance * 0.8) * 2);
 	stats.speed   = static_cast<int>(attributes.vitality * 0.3 + attributes.dexterity * 0.7);
 	stats.mana    = static_cast<int>((attributes.willpower + attributes.wisdom * 0.4) * 4);
-	stats.range   = (int)(attributes.size);
+	stats.range   = static_cast<int>(attributes.size);
 	stats.defense = attributes.endurance;
 }
 

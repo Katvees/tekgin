@@ -4,14 +4,11 @@
 #include <concepts>
 #include <memory>
 #include <optional>
-#include <type_traits>
 #include <unordered_map>
-
 
 namespace Tekgin
 {
-/// Size classes of characters
-enum class Size : char { TINY = 0, SMALL = 1, MEDIUM = 1, LARGE = 2, HUGE = 3 };
+enum class Size : char { TINY = 0, SMALL = 1, MEDIUM = 1, LARGE = 2, HUGE = 3 }; ///< Size classes of characters
 
 /// Base class for all characters (e.g. enemies, NPCs, player)
 class Character

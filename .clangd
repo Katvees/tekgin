@@ -1,5 +1,5 @@
 CompileFlags:
-  Add: [-std=c++23, -Wdocumentation]
+  Add: [-std=c++23, -stdlib=libc++, -Wdocumentation]
   CompilationDatabase: "build"
 
 Diagnostics:

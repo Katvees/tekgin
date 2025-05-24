@@ -7,7 +7,7 @@ done
 
 if [[ ${CLEAN,,} == "true" ]]; then
 	echo "Cleaning build directory..."
-	rm -rf build/*
+	rm -rf build/{,.}*
 fi
 cmake -S . -G "$GENERATOR" -B build $BUILD_ARGS
 cmake --build build

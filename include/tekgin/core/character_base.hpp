@@ -1,6 +1,6 @@
 #pragma once
 
-#include "combat/elements.hpp"
+#include "tekgin/combat/elements.hpp"
 #include <concepts>
 #include <memory>
 #include <optional>

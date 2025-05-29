@@ -1,5 +1,5 @@
-#include "core/character_base.hpp"
-#include "combat/elements.hpp"
+#include "tekgin/core/character_base.hpp"
+#include "tekgin/combat/elements.hpp"
 #include <memory>
 #include <unordered_map>
 

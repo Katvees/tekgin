@@ -1,4 +1,4 @@
-#include "combat/attacks.hpp"
+#include "tekgin/combat/attacks.hpp"
 
 int Tekgin::Attack::calculateDamage() const
 {

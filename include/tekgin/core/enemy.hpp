@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core/character_base.hpp"
-#include "core/interface/saveable.hpp"
+#include "tekgin/core/character_base.hpp"
+#include "tekgin/core/interface/saveable.hpp"
 #include <functional>
 
 #define ulong unsigned long long

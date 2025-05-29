@@ -1,1 +1,1 @@
-#include "combat/status_effects.hpp"
+#include "tekgin/combat/status_effects.hpp"

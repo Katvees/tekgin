@@ -18,4 +18,3 @@ include_dir="$root_dir/build/tekgin/include"
 
 [[ ${CLEAN,,} != "true" ]] && rm "$include_dir" -r
 cp "$root_dir"/include "$include_dir" -r
-ln -s . "$include_dir/tekgin"

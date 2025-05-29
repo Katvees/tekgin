@@ -20,7 +20,7 @@ file(GLOB_RECURSE SOURCES "src/*.cpp")
 
 add_library(tekgin STATIC ${SOURCES} )
 
-target_include_directories(tekgin PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
+target_include_directories(tekgin PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 target_compile_options(tekgin
 	PRIVATE

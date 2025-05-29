@@ -1,6 +1,6 @@
 CompileFlags:
   Add: [-std=c++23, -Wdocumentation]
-  CompilationDatabase: "build"
+  CompilationDatabase: "builddir"
 
 Diagnostics:
   UnusedIncludes: Strict

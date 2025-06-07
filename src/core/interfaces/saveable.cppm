@@ -1,12 +1,11 @@
-#pragma once
-
-#include <functional>
+export module katvees.tekgin.core.interfaces.saveable;
+import <functional>;
 
 #define ulong unsigned long long
 
 namespace Tekgin
 {
-struct ISaveable
+export struct ISaveable
 {
 	ISaveable()                            = delete;
 	ISaveable(const ISaveable&)            = delete;

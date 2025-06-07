@@ -1,7 +1,10 @@
-#include "core/character_base.hpp"
-#include "combat/elements.hpp"
-#include <memory>
-#include <unordered_map>
+module katvees.tekgin.core.character_base;
+import <unordered_map>;
+import <sstream>;
+import <vector>;
+
+
+import katvees.tekgin.combat.elements;
 
 using std::unordered_map;
 

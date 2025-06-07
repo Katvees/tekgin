@@ -1,12 +1,12 @@
-#pragma once
+export module katvees.tekgin.core.character_base;
+import <optional>;
+import <memory>;
+import <concepts>;
+import <unordered_map>;
 
-#include "combat/elements.hpp"
-#include <concepts>
-#include <memory>
-#include <optional>
-#include <unordered_map>
+import katvees.tekgin.combat.elements;
 
-namespace Tekgin
+export namespace Tekgin
 {
 enum class Size : char { TINY = 0, SMALL = 1, MEDIUM = 1, LARGE = 2, HUGE = 3 }; ///< Size classes of characters
 

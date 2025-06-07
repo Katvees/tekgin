@@ -1,8 +1,8 @@
-#pragma once
+export module katvees.tekgin.combat.elements;
 // Consider moving to another file to reduce filecount and avoid nearly empty files
 
-/// Elements for damage types etc.
-namespace Tekgin
+export namespace Tekgin
 {
+/// Elements for damage types etc.
 enum class Element : char { NONE, ALL, FIRE, COLD, LIGHTNING, POISON };
 }

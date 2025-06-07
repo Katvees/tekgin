@@ -1,9 +1,9 @@
-#pragma once
+export module katvees.tekgin.combat.attacks;
+import <functional>;
 
-#include "combat/elements.hpp"
-#include <functional>
+import katvees.tekgin.combat.elements;
 
-namespace Tekgin
+export namespace Tekgin
 {
 // Implemented as an aggregate struct for easier definition as all fields aren't usually needed
 struct Attack

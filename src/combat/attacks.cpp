@@ -1,4 +1,4 @@
-#include "combat/attacks.hpp"
+module katvees.tekgin.combat.attacks;
 
 int Tekgin::Attack::calculateDamage() const
 {

@@ -1,14 +1,14 @@
-#pragma once
+export module katvees.tekgin.combat.enemy;
+import <functional>;
 
-#include "core/character_base.hpp"
-#include "core/interface/saveable.hpp"
-#include <functional>
+import katvees.tekgin.core.character_base;
+import katvees.tekgin.core.interfaces.saveable;
 
 #define ulong unsigned long long
 
 using std::hash;
 
-namespace Tekgin
+export namespace Tekgin
 {
 class Enemy : public Character, ISaveable
 {

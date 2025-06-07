@@ -97,7 +97,4 @@ class Character
 		return it != weaknesses_ptr->end() ? it->second : std::optional<double>{};
 	}
 };
-
-template<typename T>
-concept Entity = std::derived_from<T, Character>;
 } // namespace Tekgin

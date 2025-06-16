@@ -1,4 +1,4 @@
-export module katvees.tekgin.core.character_base;
+export module katvees.tekgin.core.character;
 import <optional>;
 import <memory>;
 import <concepts>;

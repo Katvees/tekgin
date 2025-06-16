@@ -1,8 +1,5 @@
 export module katvees.tekgin.core.character;
-import <optional>;
-import <memory>;
-import <concepts>;
-import <unordered_map>;
+import std;
 
 import katvees.tekgin.combat.elements;
 

@@ -1,4 +1,5 @@
 export module katvees.tekgin.combat.elements;
+import std;
 // Consider moving to another file to reduce filecount and avoid nearly empty files
 
 export namespace Tekgin

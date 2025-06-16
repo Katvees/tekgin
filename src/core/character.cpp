@@ -1,8 +1,5 @@
 module katvees.tekgin.core.character;
-import <unordered_map>;
-import <sstream>;
-import <vector>;
-
+import std;
 
 import katvees.tekgin.combat.elements;
 

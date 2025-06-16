@@ -1,5 +1,5 @@
 export module katvees.tekgin.core.interfaces.saveable;
-import <functional>;
+import std;
 
 #define ulong unsigned long long
 

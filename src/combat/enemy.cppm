@@ -1,5 +1,5 @@
 export module katvees.tekgin.combat.enemy;
-import <functional>;
+import std;
 
 import katvees.tekgin.core.character;
 import katvees.tekgin.core.interfaces.saveable;

@@ -1,5 +1,5 @@
 export module katvees.tekgin.combat.attacks;
-import <functional>;
+import std;
 
 import katvees.tekgin.combat.elements;
 

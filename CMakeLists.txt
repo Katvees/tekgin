@@ -1,19 +1,26 @@
-cmake_minimum_required(VERSION 4.0)
+cmake_minimum_required(VERSION 3.30)
+
+set(CMAKE_EXPERIMENTAL_CXX_IMPORT_STD "d0edc3af-4c50-42ea-a356-e2862fe7a444")
+
 project(Tekgin
 	VERSION 0.0.1
 	DESCRIPTION "Basic text adventure game engine"
 	LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD_REQUIRED YES)
+set(CMAKE_CXX_EXTENSIONS ON)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -DNDEBUG")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_EXPERIMENTAL_CXX_MODULE_DYNDEP ON)
+set(CMAKE_CXX_MODULE_STD ON)
+
 
 foreach(OUTPUTCONFIG RUNTIME LIBRARY ARCHIVE)
-  set(CMAKE_${OUTPUTCONFIG}_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<TARGET_NAME:tekgin>")
+  set(CMAKE_${OUTPUTCONFIG}_OUTPUT_DIRECTORY
+      "${CMAKE_BINARY_DIR}/$<TARGET_NAME:tekgin>")
 endforeach()
 
 file(GLOB_RECURSE MODULE_INTERFACES CONFIGURE_DEPENDS "src/*.cppm")
@@ -34,20 +41,15 @@ target_compile_features(tekgin PUBLIC cxx_std_23)
 
 target_compile_options(tekgin
 	PRIVATE
-	$<$<CXX_COMPILER_ID:GNU>:-Wall -Wextra -Wpedantic>
 	$<$<CXX_COMPILER_ID:Clang>:-Wall -Wextra -Wpedantic>
-	$<$<CXX_COMPILER_ID:MSVC>:/W4>
 )
 
 target_compile_options(tekgin
   PRIVATE
-	-fmodules
 	-stdlib=libc++
-	-fexperimental-library
 )
 
 target_link_options(tekgin
   PRIVATE
 	-stdlib=libc++
-	-fexperimental-library
 )

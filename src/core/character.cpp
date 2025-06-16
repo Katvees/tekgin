@@ -1,4 +1,4 @@
-module katvees.tekgin.core.character_base;
+module katvees.tekgin.core.character;
 import <unordered_map>;
 import <sstream>;
 import <vector>;

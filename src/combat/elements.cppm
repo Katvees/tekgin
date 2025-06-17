@@ -5,5 +5,6 @@ import std;
 export namespace Tekgin
 {
 /// Elements for damage types etc.
-enum class Element : char { NONE, ALL, FIRE, COLD, LIGHTNING, POISON };
-}
+/// COUNT is always the last member
+enum class Element : std::uint8_t { NONE = 0, ALL, FIRE, COLD, LIGHTNING, POISON, COUNT };
+} // namespace Tekgin

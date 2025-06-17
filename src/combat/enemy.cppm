@@ -4,7 +4,7 @@ import std;
 import katvees.tekgin.core.character;
 import katvees.tekgin.core.interfaces.saveable;
 
-#define ulong unsigned long long
+using ullong = unsigned long long;
 
 using std::hash;
 
@@ -12,16 +12,17 @@ export namespace Tekgin
 {
 class Enemy : public Character, ISaveable
 {
-	static ulong count;
+	~Enemy() override = default;
+	
+	static ullong count;
 
-	ulong       id;
-	hash<ulong> id_hash;
+	ullong       id;
+	hash<ullong> id_hash;
 
  public:
-	void save() override;
-	void load() override;
-
-	ulong       getId() override { return id; };
-	hash<ulong> getIdHash() override { return id_hash; };
+	void         save() override;
+	void         load() override;
+	ullong       getId() override { return id; };
+	hash<ullong> getIdHash() override { return id_hash; };
 };
 } // namespace Tekgin

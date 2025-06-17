@@ -3,14 +3,12 @@ import std;
 
 import katvees.tekgin.combat.elements;
 
-using ElementMap = std::array<double, static_cast<std::size_t>(Tekgin::Element::COUNT)>; ///< std::array<Element, Element::COUNT>
-///
-namespace Tekgin
+export namespace Tekgin
 {
-export enum class Size : char { TINY = 0, SMALL = 1, MEDIUM = 1, LARGE = 2, HUGE = 3 }; ///< Size classes of characters
+enum class Size : char { TINY = 0, SMALL = 1, MEDIUM = 1, LARGE = 2, HUGE = 3 }; ///< Size classes of characters
 
 /// Base class for all characters (e.g. enemies, NPCs, player)
-export class Character
+class Character
 {
 
  public:
@@ -44,16 +42,25 @@ export class Character
 	Attributes attributes;
 	Stats      stats, bonus;
 
-	ElementMap m_resistances{};                      ///< Array associated with the Elements enum class
-	ElementMap m_weaknesses{};                       ///< Array associated with the Elements enum class
+	ElementMap<double> m_resistances{};
+	ElementMap<double> m_weaknesses{};
 
  public:
-	Character(const Character&)            = delete; // Implement later
+	Character(const Character&)            = default;
 	Character(Character&&)                 = default;
-	Character& operator=(const Character&) = delete; // Implement later
+	Character& operator=(const Character&) = default;
 	Character& operator=(Character&&)      = default;
-	Character(Attributes attributes, ElementMap m_resistances = {}, ElementMap m_weaknesses = {});
-	virtual ~Character() = default;
+	virtual ~Character()                   = default;
+
+	Character(Attributes attributes, ElementMap<double> resistances = {}, ElementMap<double> weaknesses = {});
+
+	template<typename... AttributeValues>
+	Character(AttributeValues&&... attributes, ElementMap<double> resistances = {}, ElementMap<double> weaknesses = {})
+		requires(std::is_constructible_v<Attributes, AttributeValues...>)
+		 : attributes(Attributes{ std::forward<AttributeValues>(attributes)... }),
+			m_resistances(resistances),
+			m_weaknesses(weaknesses)
+	{}
 
 	/// Reduce health by damage - defense and apply relevant m_resistances and m_weaknesses
 	virtual void takeDamage(int damage, const Element& damage_type);
@@ -61,12 +68,18 @@ export class Character
 	/// Initialize stats for character
 	virtual void updateStats();
 
-	 void                      setResistance(Element element, double value) { m_resistances.at(static_cast<std::size_t>(element)) = value; }
-	[[nodiscard]]  ElementMap  getResistances() { return m_resistances; }
-	[[nodiscard]]  double      getResistance(Element element) const { return m_resistances.at(static_cast<std::size_t>(element)); }
+	void setResistance(Element element, double value) { m_resistances.get(element) = value; }
+	[[nodiscard]] ElementMap<double> getResistances() { return m_resistances; }
+	[[nodiscard]] double     getResistance(Element element) const
+	{
+		return m_resistances.get(element);
+	}
 
-	 void                      setWeakness(Element element, double value) { m_weaknesses.at(static_cast<std::size_t>(element)) = value; }
-	[[nodiscard]]  ElementMap  getWeaknesses() { return m_weaknesses; }
-	[[nodiscard]]  double      getWeakness(Element element) const { return m_weaknesses.at(static_cast<std::size_t>(element)); }
+	void setWeakness(Element element, double value) { m_weaknesses.get(element) = value; }
+	[[nodiscard]] ElementMap<double> getWeaknesses() { return m_weaknesses; }
+	[[nodiscard]] double     getWeakness(Element element) const
+	{
+		return m_weaknesses.get(element);
+	}
 };
 } // namespace Tekgin

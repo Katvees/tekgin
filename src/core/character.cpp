@@ -3,18 +3,38 @@ import std;
 
 import katvees.tekgin.combat.elements;
 
-using std::unordered_map;
+using ElementMap = std::array<double, static_cast<std::size_t>(Tekgin::Element::COUNT)>; ///< std::array<Element, Element::COUNT>
 
 namespace Tekgin
 {
-Character::Character(const Attributes&                          attrs,
-                     const unordered_map<Element, double>&      res,
-                     const std::unordered_map<Element, double>& weak)
+Character::Stats& Character::Stats::operator+=(const Character::Stats& rhs)
+{
+	this->health += rhs.health;
+	this->stamina += rhs.stamina;
+	this->mana += rhs.mana;
+	this->range += rhs.range;
+	this->speed += rhs.speed;
+	this->defense += rhs.defense;
+	return *this;
+}
+
+Character::Stats& Character::Stats::operator-=(const Character::Stats& rhs)
+{
+	this->health -= rhs.health;
+	this->stamina -= rhs.stamina;
+	this->mana -= rhs.mana;
+	this->range -= rhs.range;
+	this->speed -= rhs.speed;
+	this->defense -= rhs.defense;
+	return *this;
+}
+
+Character::Character(Attributes attrs, ElementMap res, ElementMap weak)
 	 : attributes(attrs),
 		stats(),
 		bonus(),
-		resistances_ptr(std::make_unique<unordered_map<Element, double>>(res)),
-		weaknesses_ptr(std::make_unique<unordered_map<Element, double>>(weak))
+		m_resistances(std::move(res)),
+		m_weaknesses(std::move(weak))
 {
 	updateStats();
 }
@@ -31,8 +51,8 @@ void Character::updateStats()
 
 void Character::takeDamage(int damage, const Element& damage_type)
 {
-	damage *= 1 - getResistance(Element::ALL).value_or(0.0) + getWeakness(Element::ALL).value_or(0.0)
-	        - getResistance(damage_type).value_or(0.0) + getWeakness(damage_type).value_or(0.0);
+	damage *= 1 - getResistance(Element::ALL) + getWeakness(Element::ALL)
+	        - getResistance(damage_type) + getWeakness(damage_type);
 	damage = damage < 0 ? 0 : damage;
 	stats.health -= damage;
 }

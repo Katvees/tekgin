@@ -1,6 +1,7 @@
 CompileFlags:
   Add: [-std=c++23, -stdlib=libc++, -Wdocumentation]
   CompilationDatabase: "build"
+  Compiler: clang++
 
 Completion:
   HeaderInsertion: Never

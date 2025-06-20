@@ -4,4 +4,14 @@ CompileFlags:
   Compiler: clang++
 
 Completion:
+  AllScopes: Yes
+  ArgumentLists: FullPlaceholders
   HeaderInsertion: Never
+  CodePatterns: All
+
+InlayHints:
+  BlockEnd: true
+  DefaultArguments: true
+
+Hover:
+  ShowAKA: true

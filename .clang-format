@@ -2,9 +2,10 @@ Standard: Latest
 
 AllowShortBlocksOnASingleLine: Always
 AllowShortCaseLabelsOnASingleLine: true
+AllowShortCaseExpressionOnASingleLine: true
 AllowShortEnumsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: All
-AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AllowShortLambdasOnASingleLine: All
 AllowShortLoopsOnASingleLine: true
 AllowShortNamespacesOnASingleLine: true
@@ -73,7 +74,7 @@ BraceWrapping:
   AfterControlStatement: Never
   IndentBraces: false
 
-ReflowComments: false
+ReflowComments: true
 CommentPragmas: '^[!*/]'
 NamespaceIndentation: Inner
 QualifierAlignment: Leave
@@ -84,8 +85,13 @@ AlignArrayOfStructures: Left
 AlignAfterOpenBracket: Align
 BracedInitializerIndentWidth: 0
 AlignOperands: AlignAfterOperator
-AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveAssignments:  Consecutive
 AlignConsecutiveDeclarations: Consecutive
+AlignConsecutiveShortCaseStatements:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: true
+  AlignCaseColons: false
 AlignTrailingComments:
   Kind: Always
   OverEmptyLines: 2

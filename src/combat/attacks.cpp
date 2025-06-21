@@ -1,10 +1,8 @@
 module katvees.tekgin.combat.attacks;
 
-int Tekgin::Attack::calculateDamage() const
+namespace Tekgin
 {
-	// Check for damage solver
-	if (damage_solver) {
-		return damage_solver(*this);
-	}
-	return 0;
-}
+/// @brief Temporary implementation
+AttackResult Attack::getResult(Attacker auto& attacker) { return {}; }
+
+} // namespace Tekgin

@@ -13,7 +13,7 @@ export namespace Tekgin
 class Enemy : public Character, ISaveable
 {
 	~Enemy() override = default;
-	
+
 	static ullong count;
 
 	ullong       id;

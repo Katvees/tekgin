@@ -7,7 +7,7 @@ project(Tekgin
 	DESCRIPTION "Basic text adventure game engine"
 	LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_CXX_EXTENSIONS ON)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og")
@@ -19,8 +19,8 @@ set(CMAKE_CXX_MODULE_STD ON)
 
 
 foreach(OUTPUTCONFIG RUNTIME LIBRARY ARCHIVE)
-  set(CMAKE_${OUTPUTCONFIG}_OUTPUT_DIRECTORY
-      "${CMAKE_BINARY_DIR}/$<TARGET_NAME:tekgin>")
+	set(CMAKE_${OUTPUTCONFIG}_OUTPUT_DIRECTORY
+						"${CMAKE_BINARY_DIR}/$<TARGET_NAME:tekgin>")
 endforeach()
 
 file(GLOB_RECURSE MODULE_INTERFACES CONFIGURE_DEPENDS "src/*.cppm")
@@ -45,11 +45,11 @@ target_compile_options(tekgin
 )
 
 target_compile_options(tekgin
-  PRIVATE
+		PRIVATE
 	-stdlib=libc++
 )
 
 target_link_options(tekgin
-  PRIVATE
+		PRIVATE
 	-stdlib=libc++
 )

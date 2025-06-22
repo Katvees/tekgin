@@ -27,16 +27,12 @@ struct ElementMap
 
 	constexpr ElementMap& operator+=(const ElementMap& rhs)
 	{
-		for (std::size_t i = 0; i < k_size; ++i) {
-			this->m_data[i] += rhs.m_data[i];
-		}
+		for (std::size_t i = 0; i < k_size; ++i) { this->m_data[i] += rhs.m_data[i]; }
 	};
 
 	constexpr ElementMap& operator-=(const ElementMap& rhs)
 	{
-		for (std::size_t i = 0; i < k_size; ++i) {
-			this->m_data[i] -= rhs.m_data[i];
-		}
+		for (std::size_t i = 0; i < k_size; ++i) { this->m_data[i] -= rhs.m_data[i]; }
 	};
 
 	friend ElementMap operator+(ElementMap lhs, const ElementMap& rhs) { return lhs += rhs; };

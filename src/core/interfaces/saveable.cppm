@@ -41,15 +41,21 @@ export struct ISaveable
 	virtual void deserialize(std::istream&) const = 0;
 };
 
-export template<class Saveable>
-	requires std::is_base_of_v<ISaveable, Saveable>
+/**
+ * @brief Consteval function so classes can specialize their path as the return
+ *
+ * @tparam T Any class that implements the ISaveable interface
+ * @return Path relative to save folder where objects of class T are saved
+ */
+export template<class T>
+	requires std::is_base_of_v<ISaveable, T>
 consteval std::string_view getClassSaveRelPath();
 
-export template<class Saveable>
-	requires std::is_base_of_v<ISaveable, Saveable>
+export template<class T>
+	requires std::is_base_of_v<ISaveable, T>
 struct SaveFile
 {
-	using Type = Saveable;
+	using Type = T;
 
 	SaveFile(const SaveFile&)            = delete;
 	SaveFile(SaveFile&&)                 = delete;
@@ -58,9 +64,9 @@ struct SaveFile
 	SaveFile()                           = delete;
 	~SaveFile()                          = default;
 
-	explicit SaveFile(Saveable);
+	explicit SaveFile(T);
 
-	std::string  path = getClassSaveRelPath<Saveable>();
+	std::string  path = getClassSaveRelPath<T>();
 	std::fstream file;
 };
 

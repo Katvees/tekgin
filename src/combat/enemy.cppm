@@ -3,26 +3,34 @@ import std;
 
 import katvees.tekgin.core.character;
 import katvees.tekgin.core.interfaces.saveable;
+import katvees.tekgin.util.logging;
 
-using ullong = unsigned long long;
-
-using std::hash;
-
-export namespace Tekgin
+namespace Tekgin
 {
-class Enemy : public Character, ISaveable
+export class Enemy : public Character, ISaveable
 {
-	~Enemy() override = default;
+ public:
+	Enemy(const Enemy&)            = default;
+	Enemy(Enemy&&)                 = default;
+	Enemy& operator=(const Enemy&) = default;
+	Enemy& operator=(Enemy&&)      = default;
+	~Enemy() override;
 
-	static ullong count;
+	Enemy(Character);
 
-	ullong       id;
-	hash<ullong> id_hash;
+ private:
+	static inline long s_count = 0;
+
+	std::size_t m_id      = s_count++; // This is a placeholder, will be replaced with a proper uuid again
+	std::size_t m_id_hash = std::hash<std::size_t>{}(m_id);
 
  public:
-	void         save() override;
-	void         load() override;
-	ullong       getId() override { return id; };
-	hash<ullong> getIdHash() override { return id_hash; };
+	void serialize(std::ostream& ostr) const override;
+	void deserialize(std::istream& istr) const override;
+
+	static long getCount() { return s_count; };
+	static long decrementCount() { return --s_count; };
+
+	[[nodiscard]] Util::LogData<int> logFormat() const;
 };
 } // namespace Tekgin

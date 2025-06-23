@@ -5,13 +5,14 @@ import katvees.tekgin.combat.elements;
 
 export namespace Tekgin
 {
-enum class Size : char { TINY = 0, SMALL = 1, MEDIUM = 1, LARGE = 2, HUGE = 3 }; ///< Size classes of characters
-
 /// Base class for all characters (e.g. enemies, NPCs, player)
 class Character
 {
 
  public:
+	/// Character size classes
+	enum class Size : std::uint8_t { TINY = 0, SMALL = 1, MEDIUM = 1, LARGE = 2, HUGE = 3 };
+
 	/// Contains attributes of character
 	struct Attributes
 	{
@@ -68,12 +69,18 @@ class Character
 	/// Initialize stats for character
 	virtual void updateStats();
 
-	void                             setResistance(Element element, double value) { m_resistances.get(element) = value; }
+	void setResistance(Element element, double value) { m_resistances.get(element) = value; }
 	[[nodiscard]] ElementMap<double> getResistances() { return m_resistances; }
-	[[nodiscard]] double             getResistance(Element element) const { return m_resistances.get(element); }
+	[[nodiscard]] double     getResistance(Element element) const
+	{
+		return m_resistances.get(element);
+	}
 
-	void                             setWeakness(Element element, double value) { m_weaknesses.get(element) = value; }
+	void setWeakness(Element element, double value) { m_weaknesses.get(element) = value; }
 	[[nodiscard]] ElementMap<double> getWeaknesses() { return m_weaknesses; }
-	[[nodiscard]] double             getWeakness(Element element) const { return m_weaknesses.get(element); }
+	[[nodiscard]] double     getWeakness(Element element) const
+	{
+		return m_weaknesses.get(element);
+	}
 };
 } // namespace Tekgin

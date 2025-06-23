@@ -6,7 +6,9 @@
 export module katvees.tekgin.util.logging;
 import std;
 
-using std::ostream;
+import katvees.tekgin.paths;
+import katvees.tekgin.core.engine;
+
 using std::strcmp;
 
 namespace Tekgin::Util
@@ -28,20 +30,9 @@ export const LogLevel LOG_LEVEL = [] {
 	return INFO;
 }();
 
-constexpr bool shouldLog(const LogLevel& level) { return level <= LOG_LEVEL; }
+constexpr bool shouldLog(LogLevel level) { return level <= LOG_LEVEL; }
 
 std::string logLevelToString(LogLevel level);
-
-/**
- * @class LogOptions
- * @brief Options for logging
- */
-export struct LogOptions
-{
-	LogLevel level  = INFO;    ///< @var Tekgin::Util::LogLevel level Verbosity level of the logging
-	bool     prefix = true;    ///< @var bool b_prefix If the log should have prefix dependent on the level
-	ostream* out    = nullptr; ///< @var std::ostream* out Stream to log to. Defaults to cout or cerr depending on level
-};
 
 export template<typename... Args>
 struct LogData
@@ -50,6 +41,23 @@ struct LogData
 	std::tuple<Args...> args;
 };
 
+export struct LogDest
+{
+ public:
+	explicit LogDest(LogLevel level = LogLevel::INFO);
+
+	template<typename T>
+	LogDest& operator<<(const T& value)
+	{
+		*stream << value;
+		if (file.is_open()) { file << value; }
+		return *this;
+	}
+
+ private:
+	std::ostream* stream;
+	std::ofstream file;
+};
 
 template<typename T>
 struct is_log_data : std::false_type
@@ -62,24 +70,21 @@ constexpr bool is_log_data_v = is_log_data<T>::value;
 
 /// @brief Concept requiring the class to have the member function logFormat
 template<typename T>
-concept HasLogFormat = requires(const T& t) {
-	t.logFormat();
-	is_log_data_v<decltype(t.logFormat())>;
-};
+concept HasLogFormat = requires(const T& t) { is_log_data_v<decltype(t.logFormat())>; };
 
 /**
  * @brief Function to log a class
  *
  * @tparam T Type of the object
- * @param opts Options for the logging
+ * @param level The verbosity/severity level of the log
  * @param obj The object to log
  */
 export template<typename T>
 	requires HasLogFormat<T>
-void log(const LogOptions& opts, const T& obj)
+void log(LogLevel level, const T& obj)
 {
 	auto data = obj.logFormat();
-	std::apply([&opts, &data](auto&&... args) { log(opts, data.fmt, std::forward<decltype(args)>(args)...); }, data.args);
+	std::apply([level, &data](auto&&... args) { log(level, data.fmt, std::forward<decltype(args)>(args)...); }, data.args);
 }
 
 /**
@@ -92,32 +97,23 @@ export template<typename T>
 	requires HasLogFormat<T>
 void log(const T& obj)
 {
-	log({ .level = INFO }, obj);
+	log(INFO, obj);
 }
 
 /**
  * @brief Log a string into cout or cerr depending on log level or to specified stream
  *
- * @param opts Options for the logging
+ * @param level The verbosity/severity level of the log
  * @param fmt Format string
  * @tparam Args Any type that has std::format specialization
  * @param args Arguments for format string
  */
 export template<typename... Args>
-void log(const LogOptions& opts, std::string_view fmt, Args&&... args)
+void log(LogLevel level, std::string_view fmt, Args&&... args)
 {
-	if (shouldLog(opts.level)) {
-		ostream* out = nullptr;
-		if (opts.out != nullptr) {
-			out = opts.out;
-		} else {
-			switch (opts.level) {
-			case FATAL ... WARN: out = &std::cerr; break;
-			case INFO ... TRACE: out = &std::cout;
-			}
-		}
-		*out << (opts.prefix ? (logLevelToString(opts.level) + ": ") : "")
-			  << std::format(std::runtime_format(fmt), std::forward<Args>(args)...) << "\n";
+	if (shouldLog(level)) {
+		LogDest dest(level);
+		dest << (logLevelToString(level) + ": ") << std::format(std::runtime_format(fmt), std::forward<Args>(args)...) << "\n";
 	}
 }
 

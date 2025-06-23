@@ -5,17 +5,18 @@ for arg in "$@"; do
 	eval "${arg%%=*}"=\'"${arg#*=}"\'
 done
 
-if [[ ${NO_FORMAT,,} == "true" ]] || [[ ${NO_FORMAT,,} == "yes" ]] || [[ ${NO_FORMAT,,} == "on" ]]; then
-	echo "Skipped formatting"
-else
-	echo "Formatting files.."
-	clang-format src/**/*.cpp{,m} -i
-fi
-
 if [[ ${CLEAN,,} == "true" ]] || [[ ${CLEAN,,} == "yes" ]] || [[ ${CLEAN,,} == "on" ]]; then
-	echo "Cleaning build directory..."
-	rm -rf build/{,.}*
+	CLEAN=--clean-first
+else
+	CLEAN=""
 fi
 
-cmake -S . -G "$GENERATOR" -B build $BUILD_ARGS
-cmake --build build
+cmake -S . -G "Ninja Multi-Config" -B build $BUILD_ARGS
+
+if [[ -z $CONFIG ]]; then
+	cmake --build build $CLEAN
+else
+	for config in $(echo "$CONFIG" | tr ";" " "); do
+		cmake --build build $CLEAN --config $config
+	done
+fi

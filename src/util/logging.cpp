@@ -2,7 +2,7 @@ module katvees.tekgin.util.logging;
 
 namespace Tekgin::Util
 {
-std::string logLevelToString(LogLevel level)
+std::string logLevelToString(Log::Level level)
 {
 	switch (level) {
 	case FATAL: return "FATAL";
@@ -15,21 +15,18 @@ std::string logLevelToString(LogLevel level)
 	}
 }
 
-LogDest::LogDest(LogLevel level)
+std::ostream& Log::getStream(Log::Level level)
 {
-	namespace fs = std::filesystem;
-
 	switch (level) {
-	case FATAL ... WARN: stream = &std::cerr; break;
-	case INFO ... TRACE: stream = &std::cout;
+	case FATAL ... WARN: return std::cerr; break;
+	case INFO ... TRACE: return std::cout;
 	}
+}
 
-	// Format filename with time
-	std::string timestamp = std::format(std::runtime_format("{:%Y-%m-%d_%H-%M-%S}"), Engine::get().getStartTime());
-
-	fs::path filePath = log_dir / ("Tekgin_" + timestamp + ".log");
-	fs::create_directories(filePath.parent_path());
-	file.open(filePath, std::ios::app);
+std::ostream& Log::getFile()
+{
+	static std::ofstream file{ std::format("{}/Tekgin_{:%Y-%m-%d_%H-%M-%S}.log", log_dir.string(), START_TIME), std::ios::out };
+	return file;
 }
 
 

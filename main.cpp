@@ -4,7 +4,7 @@ import katvees.tekgin;
 int main()
 {
 	using namespace Tekgin;
-	using enum Util::LogLevel;
+	using enum Util::Log::Level;
 
 	Engine& engine = Engine::get();
 

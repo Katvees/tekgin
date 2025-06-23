@@ -11,7 +11,7 @@ static static const char* app_data = std::getenv("LOCALAPPDATA");
 if (app_data) {
 	export const fs::path data_dir = fs::path(localAppData) / appName / "Logs";
 } else {
-	std::cerr << $LOCALAPPDATA not set, falling back to temporary directory path ";
+	std::cerr << "$LOCALAPPDATA not set, falling back to temporary directory path ";
 													export const fs::path data_dir = fs::temp_directory_path() / "tekgin";
 }
 

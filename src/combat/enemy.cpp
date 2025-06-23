@@ -2,7 +2,7 @@ module;
 #include <cassert>
 module katvees.tekgin.combat.enemy;
 
-using enum Tekgin::Util::LogLevel;
+using enum Tekgin::Util::Log::Level;
 
 namespace Tekgin
 {

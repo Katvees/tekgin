@@ -37,6 +37,19 @@ Character::Character(Attributes attributes, ElementMap<double> resistances, Elem
 	updateStats();
 }
 
+void Character::updateStats()
+{
+	// int  vitality{}, endurance{}, strength{}, dexterity{};  // Physical
+	// int  charisma{}, intelligence{}, wisdom{}, willpower{}; // Mental
+	const auto& attributes = this->attributes;
+	this->stats.health     = attributes.vitality + attributes.endurance;
+	this->stats.stamina    = attributes.endurance + attributes.willpower;
+	this->stats.mana       = attributes.willpower + attributes.wisdom;
+	this->stats.range      = static_cast<double>(attributes.size);
+	this->stats.speed      = static_cast<double>(attributes.size) + attributes.dexterity;
+	this->stats.defense    = attributes.endurance;
+}
+
 void Character::takeDamage(int damage, const Element& damage_type)
 {
 	damage *= 1 - getResistance(Element::ALL) + getWeakness(Element::ALL) - getResistance(damage_type)

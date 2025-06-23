@@ -1,5 +1,4 @@
-/**
- * @file
+/** @file
  * @brief Implements logging functions and allows classes to have a formatter function to easily log the object
  */
 
@@ -7,16 +6,24 @@ export module katvees.tekgin.util.logging;
 import std;
 
 import katvees.tekgin.paths;
-import katvees.tekgin.core.engine;
+import katvees.tekgin.constants;
 
 using std::strcmp;
 
 namespace Tekgin::Util
 {
-export enum LogLevel : std::int8_t { FATAL = -1, NONE, ERROR, WARN, INFO, DEBUG, TRACE };
+
+export namespace Log
+{
+	enum Level : std::int8_t { FATAL = -1, NONE, ERROR, WARN, INFO, DEBUG, TRACE };
+	std::ostream& getStream(Level level = INFO);
+	std::ostream& getFile();
+}; // namespace Log
+
+using enum Log::Level;
 
 /// @brief The logging level set through an environment variable
-export const LogLevel LOG_LEVEL = [] {
+export const Log::Level LOG_LEVEL = [] {
 	const char* log_level_str = std::getenv("LOG_LEVEL");
 	if (log_level_str != nullptr) {
 		if (strcmp(log_level_str, "FATAL") == 0) { return FATAL; }
@@ -30,33 +37,16 @@ export const LogLevel LOG_LEVEL = [] {
 	return INFO;
 }();
 
-constexpr bool shouldLog(LogLevel level) { return level <= LOG_LEVEL; }
+[[gnu::always_inline]] static inline bool shouldLog(Log::Level level) { return level <= LOG_LEVEL; }
 
-std::string logLevelToString(LogLevel level);
+std::string logLevelToString(Log::Level level);
 
+/// @todo possible make fmt of type std::format_string
 export template<typename... Args>
 struct LogData
 {
 	std::string_view    fmt;
 	std::tuple<Args...> args;
-};
-
-export struct LogDest
-{
- public:
-	explicit LogDest(LogLevel level = LogLevel::INFO);
-
-	template<typename T>
-	LogDest& operator<<(const T& value)
-	{
-		*stream << value;
-		if (file.is_open()) { file << value; }
-		return *this;
-	}
-
- private:
-	std::ostream* stream;
-	std::ofstream file;
 };
 
 template<typename T>
@@ -73,6 +63,38 @@ template<typename T>
 concept HasLogFormat = requires(const T& t) { is_log_data_v<decltype(t.logFormat())>; };
 
 /**
+ * @brief Log a string into cout or cerr depending on log level or to specified stream
+ *
+ * @param level The verbosity/severity level of the log
+ * @param fmt Format string
+ * @tparam Args Any type that has std::format specialization
+ * @param args Arguments for format string
+ */
+export template<typename... Args>
+void log(Log::Level level, std::string_view fmt, Args&&... args)
+{
+	if (shouldLog(level)) {
+		std::println(Log::getStream(level),
+		             std::runtime_format(logLevelToString(level) + ": " + fmt),
+		             std::forward<Args>(args)...);
+	}
+	std::println(Log::getFile(), std::runtime_format(logLevelToString(level) + ": " + fmt), std::forward<Args>(args)...);
+}
+
+/**
+ * @brief Log a string into cout or cerr depending on log level
+ *
+ * @param fmt Format string
+ * @tparam Args Any type that has std::format specialization
+ * @param args Arguments for format string
+ */
+export template<typename... Args>
+void log(const std::string& fmt, Args&&... args)
+{
+	log(INFO, fmt, std::forward<Args>(args)...);
+}
+
+/**
  * @brief Function to log a class
  *
  * @tparam T Type of the object
@@ -81,7 +103,7 @@ concept HasLogFormat = requires(const T& t) { is_log_data_v<decltype(t.logFormat
  */
 export template<typename T>
 	requires HasLogFormat<T>
-void log(LogLevel level, const T& obj)
+void log(Log::Level level, const T& obj)
 {
 	auto data = obj.logFormat();
 	std::apply([level, &data](auto&&... args) { log(level, data.fmt, std::forward<decltype(args)>(args)...); }, data.args);
@@ -98,38 +120,6 @@ export template<typename T>
 void log(const T& obj)
 {
 	log(INFO, obj);
-}
-
-/**
- * @brief Log a string into cout or cerr depending on log level or to specified stream
- *
- * @param level The verbosity/severity level of the log
- * @param fmt Format string
- * @tparam Args Any type that has std::format specialization
- * @param args Arguments for format string
- */
-export template<typename... Args>
-void log(LogLevel level, std::string_view fmt, Args&&... args)
-{
-	if (shouldLog(level)) {
-		LogDest dest(level);
-		dest << (logLevelToString(level) + ": ") << std::format(std::runtime_format(fmt), std::forward<Args>(args)...) << "\n";
-	}
-}
-
-/**
- * @brief Log a string into cout or cerr depending on log level
- *
- * @param fmt Format string
- * @tparam Args Any type that has std::format specialization
- * @param args Arguments for format string
- */
-export template<typename... Args>
-void log(const std::string& fmt, Args&&... args)
-{
-	if (shouldLog(INFO)) {
-		std::cout << "INFO: " << std::format(std::runtime_format(fmt), std::forward<Args>(args)...) << "\n";
-	}
 }
 
 export template<typename... Args>

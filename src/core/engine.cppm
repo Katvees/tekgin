@@ -2,6 +2,7 @@ export module katvees.tekgin.core.engine;
 import std;
 
 import katvees.tekgin.paths;
+import katvees.tekgin.constants;
 
 namespace Tekgin
 {
@@ -20,14 +21,9 @@ export class Engine
 		return instance;
 	}
 
-	[[nodiscard]] std::chrono::system_clock::time_point getStartTime() const { return startTime; }
-
  private:
-	// Private constructor
 	Engine();
-
-	// Member variables
-	std::chrono::system_clock::time_point startTime;
+	~Engine() = default;
 };
 
 } // namespace Tekgin

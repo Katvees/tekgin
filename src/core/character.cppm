@@ -11,14 +11,14 @@ class Character
 
  public:
 	/// Character size classes
-	enum class Size : std::uint8_t { TINY = 0, SMALL = 1, MEDIUM = 1, LARGE = 2, HUGE = 3 };
+	enum class Size : std::uint8_t { tiny = 0, small = 1, medium = 1, large = 2, huge = 3 };
 
 	/// Contains attributes of character
 	struct Attributes
 	{
 		int  vitality{}, endurance{}, strength{}, dexterity{};  // Physical
 		int  charisma{}, intelligence{}, wisdom{}, willpower{}; // Mental
-		Size size = Size::MEDIUM;
+		Size size = Size::medium;
 	};
 
 	const Attributes& getAttributes() { return attributes; }

@@ -17,7 +17,7 @@ int main()
        .intelligence = 1,
        .wisdom       = 1,
        .willpower    = 1,
-       .size         = Character::Size::SMALL }
+       .size         = Character::Size::small }
 	};
 
 	Enemy enemy1{ chara };
@@ -29,7 +29,7 @@ int main()
 		std::println("{}", chara.getAttributes().vitality);
 		std::println("{}", enemy2.getAttributes().vitality);
 	} catch (const std::exception& err) {
-		Util::log(ERROR, "{}", err.what());
+		Util::log(error, "{}", err.what());
 	}
 	Util::log(enemy1);
 	return 0;

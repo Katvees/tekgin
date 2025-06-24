@@ -16,10 +16,10 @@ concept Attacker = requires(const C& c) {
 
 export struct Attack
 {
-	enum Kind : std::uint8_t { MELEE, RANGED, MAGIC };
+	enum Kind : std::uint8_t { melee, ranged, magic };
 
-	Kind    kind         = Kind::MELEE;
-	Element element      = Element::NONE;
+	Kind    kind         = Kind::melee;
+	Element element      = Element::none;
 	double  damage_coeff = 1.0, range_coeff = 1.0, speed_coeff = 1.0; ///< @brief Stat coefficients of attach
 
 	/**
@@ -35,8 +35,8 @@ export struct Attack
 
 export struct AttackResult
 {
-	Attack::Kind kind    = Attack::Kind::MELEE;
-	Element      element = Element::NONE;
+	Attack::Kind kind    = Attack::Kind::melee;
+	Element      element = Element::none;
 	int          damage = 0, range = 0, speed = 0; ///< @brief Stats of attack
 };
 

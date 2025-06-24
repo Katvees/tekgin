@@ -9,15 +9,15 @@ namespace Tekgin
 
 Enemy::Enemy(Character character) : Character(std::move(character))
 {
-	Util::log(DEBUG, "Constructed Enemy from Character ({})", s_count);
-	Util::log(DEBUG, *this);
+	Util::log(debug, "Constructed Enemy from Character ({})", s_count);
+	Util::log(debug, *this);
 	assert(s_count >= 0 && "Enemy count negative during contruction");
 }
 
 Enemy::~Enemy()
 {
 	assert(s_count >= 0 && "Enemy count negative after destruction");
-	Util::log(DEBUG, "Destructed Enemy({})", s_count--);
+	Util::log(debug, "Destructed Enemy({})", s_count--);
 }
 
 void Enemy::serialize(std::ostream& ostr) const { ostr << "Enemy"; }

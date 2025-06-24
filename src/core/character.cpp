@@ -52,7 +52,7 @@ void Character::updateStats()
 
 void Character::takeDamage(int damage, const Element& damage_type)
 {
-	damage *= 1 - getResistance(Element::ALL) + getWeakness(Element::ALL) - getResistance(damage_type)
+	damage *= 1 - getResistance(Element::all) + getWeakness(Element::all) - getResistance(damage_type)
 	        + getWeakness(damage_type);
 	damage = damage < 0 ? 0 : damage;
 	stats.health -= damage;

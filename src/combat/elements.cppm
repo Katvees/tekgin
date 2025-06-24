@@ -16,7 +16,7 @@ export namespace Tekgin
  * though this might be removed in the future as it would be safer to simply
  * have a compile time constant that is the size of the enum
  */
-enum class Element : std::uint8_t { NONE = 0, ALL, FIRE, COLD, LIGHTNING, POISON, COUNT };
+enum class Element : std::uint8_t { none = 0, all, fire, cold, lightning, poison, count };
 
 using enum Element;
 
@@ -31,14 +31,14 @@ struct ElementMap
 {
  private:
 	/// @brief Size of the underlying array
-	static constinit const std::uint8_t k_size = std::to_underlying(COUNT);
+	static constinit const std::uint8_t k_size = std::to_underlying(count);
 
 	std::array<T, k_size> m_data{}; ///< @brief Underlying array of the map
 
 	/// @brief Convert Element to corresponding index
 	static constexpr std::uint8_t toIndex(Element element)
 	{
-		assert(element != COUNT && "Element::COUNT is not a valid value");
+		assert(element != count && "Element::COUNT is not a valid value");
 		return std::to_underlying(element);
 	}
 

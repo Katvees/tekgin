@@ -15,9 +15,9 @@ namespace Tekgin::Util
 
 export namespace Log
 {
-	enum Level : std::int8_t { FATAL = -1, NONE, ERROR, WARN, INFO, DEBUG, TRACE };
-	std::ostream& getStream(Level level = INFO);
-	std::ostream& getFile();
+	enum Level : std::int8_t { fatal = -1, none, error, warn, info, debug, trace };
+	[[gnu::const]] std::ostream& getStream(Level level = info);
+	[[gnu::const]] std::ostream& getFile();
 }; // namespace Log
 
 using enum Log::Level;
@@ -26,20 +26,20 @@ using enum Log::Level;
 export const Log::Level LOG_LEVEL = [] {
 	const char* log_level_str = std::getenv("LOG_LEVEL");
 	if (log_level_str != nullptr) {
-		if (strcmp(log_level_str, "FATAL") == 0) { return FATAL; }
-		if (strcmp(log_level_str, "NONE") == 0) { return NONE; }
-		if (strcmp(log_level_str, "ERROR") == 0) { return ERROR; }
-		if (strcmp(log_level_str, "WARN") == 0) { return WARN; }
-		if (strcmp(log_level_str, "INFO") == 0) { return INFO; }
-		if (strcmp(log_level_str, "DEBUG") == 0) { return DEBUG; }
-		if (strcmp(log_level_str, "TRACE") == 0) { return TRACE; }
+		if (strcmp(log_level_str, "FATAL") == 0) { return fatal; }
+		if (strcmp(log_level_str, "NONE") == 0) { return none; }
+		if (strcmp(log_level_str, "ERROR") == 0) { return error; }
+		if (strcmp(log_level_str, "WARN") == 0) { return warn; }
+		if (strcmp(log_level_str, "INFO") == 0) { return info; }
+		if (strcmp(log_level_str, "DEBUG") == 0) { return debug; }
+		if (strcmp(log_level_str, "TRACE") == 0) { return trace; }
 	}
-	return INFO;
+	return info;
 }();
 
 [[gnu::always_inline]] static inline bool shouldLog(Log::Level level) { return level <= LOG_LEVEL; }
 
-std::string logLevelToString(Log::Level level);
+export std::string logLevelToString(Log::Level level);
 
 /// @todo possible make fmt of type std::format_string
 export template<typename... Args>
@@ -91,7 +91,7 @@ void log(Log::Level level, std::string_view fmt, Args&&... args)
 export template<typename... Args>
 void log(const std::string& fmt, Args&&... args)
 {
-	log(INFO, fmt, std::forward<Args>(args)...);
+	log(info, fmt, std::forward<Args>(args)...);
 }
 
 /**
@@ -119,7 +119,7 @@ export template<typename T>
 	requires HasLogFormat<T>
 void log(const T& obj)
 {
-	log(INFO, obj);
+	log(info, obj);
 }
 
 export template<typename... Args>

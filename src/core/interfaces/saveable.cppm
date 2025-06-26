@@ -9,9 +9,7 @@ export template<class Saveable>
 struct SaveFile;
 
 /**
-
-    @brief Save an object ont onto disk un
-   er
+ * @brief Save an object ont onto disk under
  *
  * @tparam T Class of the object to save to disk
  * @return SaveFile that refers to the saved object

@@ -1,42 +1,63 @@
+/**
+ * @file
+ * @brief Element enum class and ElementMap<T> class for creating easy associative arrays of elements and values
+ */
+module;
+#include <cassert>
 export module katvees.tekgin.combat.elements;
 import std;
 
 export namespace Tekgin
 {
-/// Elements for damage types etc.
-/// COUNT is always the last member
+
+/** @brief Elements for damage types etc.
+ *
+ * @note COUNT is always the last member to get the size at compile time,
+ * though this might be removed in the future as it would be safer to simply
+ * have a compile time constant that is the size of the enum
+ */
 enum class Element : std::uint8_t { NONE = 0, ALL, FIRE, COLD, LIGHTNING, POISON, COUNT };
 
-/// Specialized class to associate balues with elements without the overhead of a map
-template<typename DataType>
+using enum Element;
+
+/**
+ * @brief Specialized class to associate balues with elements without the
+ * overhead of a map
+ *
+ * @tparam T Type of the underlying data
+ */
+template<typename T>
 struct ElementMap
 {
  private:
-	static constexpr std::size_t       toIndex(Element element) { return static_cast<std::size_t>(element); }
-	static constexpr const std::size_t k_size = toIndex(Element::COUNT);
+	/// @brief Size of the underlying array
+	static constinit const std::uint8_t k_size = std::to_underlying(COUNT);
 
-	std::array<DataType, k_size> m_data{};
+	std::array<T, k_size> m_data{}; ///< @brief Underlying array of the map
+
+	/// @brief Convert Element to corresponding index
+	static constexpr std::uint8_t toIndex(Element element)
+	{
+		assert(element != COUNT && "Element::COUNT is not a valid value");
+		return std::to_underlying(element);
+	}
 
  public:
-	void                set(Element element, const DataType& value) { m_data.at(toIndex(element)) = value; }
-	constexpr DataType  get(Element element) const { return m_data.at(toIndex(element)); }
-	constexpr DataType& get(Element element) { return m_data.at(toIndex(element)); }
+	void set(Element element, const T& value) { m_data.at(toIndex(element)) = value; } ///< @brief Set value at element
+	constexpr T  get(Element element) const { return m_data.at(toIndex(element)); }    ///< @brief Get value at element
+	constexpr T& get(Element element) { return m_data.at(toIndex(element)); }          ///< @brief Get value at element
 
-	constexpr DataType&       operator[](Element element) { return m_data[toIndex(element)]; }
-	constexpr const DataType& operator[](Element element) const { return m_data[toIndex(element)]; }
+	constexpr T&       operator[](Element element) { return m_data[toIndex(element)]; }
+	constexpr const T& operator[](Element element) const { return m_data[toIndex(element)]; }
 
 	constexpr ElementMap& operator+=(const ElementMap& rhs)
 	{
-		for (std::size_t i = 0; i < k_size; ++i) {
-			this->m_data[i] += rhs.m_data[i];
-		}
+		for (std::uint8_t i = 0; i < k_size; ++i) { this->m_data[i] += rhs.m_data[i]; }
 	};
 
 	constexpr ElementMap& operator-=(const ElementMap& rhs)
 	{
-		for (std::size_t i = 0; i < k_size; ++i) {
-			this->m_data[i] -= rhs.m_data[i];
-		}
+		for (std::uint8_t i = 0; i < k_size; ++i) { this->m_data[i] -= rhs.m_data[i]; }
 	};
 
 	friend ElementMap operator+(ElementMap lhs, const ElementMap& rhs) { return lhs += rhs; };
